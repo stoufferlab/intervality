@@ -50,6 +50,12 @@ public:
 
   //overloaded operators
   bool operator == (Node);
+  
+  // methods/accessors related to body size
+  void SetBodySize(double size) {BodySize=size;}
+  
+  // accessors
+  double GetBodySize() {return BodySize;}
 
 protected:
   unsigned long Label;
@@ -57,6 +63,7 @@ protected:
   vector <Node * > LIn;
   vector <Node * > LOut;
 
+  double BodySize;
 };
 
 #endif

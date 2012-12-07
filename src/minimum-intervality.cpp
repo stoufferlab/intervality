@@ -50,6 +50,6 @@ int main(int argc, char *argv[]){
   bool trackOrderings = true;
   long int ngaps = net.LeastIntervalOrdering(printProgress, trackOrderings);
 
-  cout << "Minimum number of gaps: " << ngaps << endl;
+  cout << "G_hat = " << ngaps << endl;
 }
 

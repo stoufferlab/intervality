@@ -102,7 +102,12 @@ public:
 				     bool trackOrderings,
 				     bool reducePermutations);
 
-  
+  /////////////////////////////////////////////////////////////////
+  // Code to deal with species' body sizes and intervality ////////
+  /////////////////////////////////////////////////////////////////
+
+  void ReadBodySizes(char *filename);
+  void SetupBodySizePermutation(vector<double>& bodySizePosition);
 
 };
 

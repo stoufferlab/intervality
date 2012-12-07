@@ -186,10 +186,13 @@ long Network::SimulatedAnnealingIntervality(long (*energyFunction)(const vector<
 
   int beginning=0,middle=0,end=0;
 
-  // ****************!!!!!!!!!!!*************
-  // YOU PROBABLY WANT TO ADJUST THE FOLLOWING AS THEY ARE JUST
-  // INITIAL GUIDES FOR VALUES THAT HAVE WORKED PREVIOUSLY
-  // ****************!!!!!!!!!!!*************
+  // ****************!!!!!!!!!!!*****************************
+  // !!!DEBUG ME!!!
+  // THE TERMINATION CRITERIA SHOULD BE MADE MORE RIGOROUS
+  //
+  // YOU MIGHT WANT TO ADJUST THE FOLLOWING AS THEY ARE JUST
+  // INITIAL ESTIMATES
+  // ****************!!!!!!!!!!!*****************************
 
   if (energyFunction == &INTERVALITY::LeastIntervalEnergy){
     beginning = 50;
