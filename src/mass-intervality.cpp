@@ -74,7 +74,7 @@ int main(int argc, char *argv[]){
   for(i=0;i<bodySizePositions.size();++i)
     positions[i] = int(bodySizePositions[i]);
   
-  random_shuffle(positions.begin(),positions.end());
+  //random_shuffle(positions.begin(),positions.end());
   INTERVALITY::LeastIntervalSortLinks(links,positions);
   long int ngaps = INTERVALITY::LeastIntervalEnergy(links,positions);
 
