@@ -1,2 +1,2 @@
-food-web-intervality
+intervality
 ====================
