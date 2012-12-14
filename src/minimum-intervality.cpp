@@ -12,32 +12,27 @@
 #include <node.hpp>
 #include <network.hpp>
 #include <intervality_tools.hpp>
+#include <option_parser.hpp>
 
 // namespaces
 using namespace std;
 
 int main(int argc, char *argv[]){
-  int i,j,k,l;
-  srand(time(NULL));
+  char* netfile;
+  unsigned long seed;
+  DBS::OptionParser(argc,argv,netfile,seed);
 
-  if(argc!=3){
-      cout << endl << "You have entered an incorrect number of arguments. ";
-      cout << "The correct procedure to use this program is:\n\n";
-      cout << "$ ./run_intervality empirical_file random_seed" << endl << endl;
-      cout << "where: empirical_file is a filename with list of links: predator prey," << endl;
-      cout << "       random_seed is an integer random seed" << endl << endl;
-      cout << "It will write to standard output the minimum number of gaps for any permutation." << endl << endl;
-      exit(0);
-  }
-
-  if(strtol(argv[2],NULL,10)!=0)
-    srand(strtol(argv[2],NULL,10));
+  if(seed == 0)
+    srand(time(NULL));
+  else
+    srand(seed);
 
   Network net;
-  net.TwoColumn(argv[1]);
+  net.TwoColumn(netfile);
 
   /* 
-     control the output and memory footprint with the following
+     !!!!! IMPORTANT !!!!!
+     you control the output and memory footprint with the following
   
      1) printProgress: whether or not to print out periodic updates of
      simulated annealing

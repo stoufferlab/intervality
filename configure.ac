@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([food-web-intervality], [0.11], [daniel.stouffer@canterbury.ac.nz])
+AC_INIT([intervality], [0.11], [daniel.stouffer@canterbury.ac.nz])
 AC_PREREQ(2.61)
 AM_INIT_AUTOMAKE([foreign])
 

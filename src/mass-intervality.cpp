@@ -13,30 +13,27 @@
 #include <node.hpp>
 #include <network.hpp>
 #include <intervality_tools.hpp>
+#include <option_parser.hpp>
 
 // namespaces
 using namespace std;
 
 int main(int argc, char *argv[]){
-  int i,j,k,l;
-  srand(time(NULL));
+  int i,j;
+  char* netfile;
+  char* sizefile;
+  bool randomize,species;
+  unsigned long seed;
+  DBS::OptionParser(argc,argv,netfile,sizefile,randomize,species,seed);
 
-  if(argc!=4){
-      cout << endl << "You have entered an incorrect number of arguments." << endl << endl;
-      cout << "The correct procedure to use this program is: $ ./program empirical_file mass_file random_seed " << endl << endl;
-      cout << "Where: empirical_file is a filename with list of links: predator prey," << endl;
-      cout << "       mass_file is a filename with a list of species and their masses: label mass," << endl;
-      cout << "       random_seed is an integer random seed" << endl;
-      cout << "It will write to standard output the number of gaps for the input permutation." << endl << endl;
-      exit(0);
-  }
-
-  if(strtol(argv[3],NULL,10)!=0)
-    srand(strtol(argv[3],NULL,10));
+  if(seed == 0)
+    srand(time(NULL));
+  else
+    srand(seed);
 
   Network net;
-  net.TwoColumn(argv[1]);
-  net.ReadBodySizes(argv[2]);
+  net.TwoColumn(netfile);
+  net.ReadBodySizes(sizefile);
 
   vector<vector<int> > subsets;
 
@@ -74,11 +71,23 @@ int main(int argc, char *argv[]){
   for(i=0;i<bodySizePositions.size();++i)
     positions[i] = int(bodySizePositions[i]);
   
-  //random_shuffle(positions.begin(),positions.end());
+  if (randomize)
+    random_shuffle(positions.begin(),positions.end());
+
   INTERVALITY::LeastIntervalSortLinks(links,positions);
-  long int ngaps = INTERVALITY::LeastIntervalEnergy(links,positions);
 
-  cout << "G_m = " << ngaps << endl;
-
+  if (species == false){
+    long int ngaps = INTERVALITY::LeastIntervalEnergy(links,positions);
+    cout << "G_m = " << ngaps << endl;
+  }else{
+    long int ngaps;
+    for(i=0;i<net.size();++i){
+      if(links[i].size()>0){
+        ngaps = (positions[links[i][links[i].size()-1]] - positions[links[i][0]] - 1) - (links[i].size() - 2);
+        cout << net.GetOriginalLabel(i) << "\t" << ngaps << endl;
+      }else
+        cout << net.GetOriginalLabel(i) << "\t" << "0" << endl;
+    }
+  }
 }
 
